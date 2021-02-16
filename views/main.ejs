@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="is">
+  <head>
+    <meta charset="utf-8">
+    <title>Undirskriftarlisti</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+
+  <body>
+    <main>
+      <div class="signature-form">
+        <h1>Undirskriftarlisti</h1>
+          <form class="form" method="POST" action="/" enctype="application/x-www-form-urlencoded">
+            <div class="form-item">
+              <label for="name"> Nafn*: </label>
+                <% if(typeof errorMessages != 'undefined' && locals.errors(errorMessages, 'name')) { %>
+                  <input class="form-box" placeholder="Nafn" type="text" name="name" id="name" style="background-color: rgb(224, 129, 129);">
+                <% } else { %>
+                  <input class="form-box" placeholder="Nafn" type="text" name="name" id="name">
+                <% } %>
+            </div>
+
+            <div class="form-item">
+              <label for="kt">Kennitala*:</label>
+              <% if(typeof errorMessages != 'undefined' && locals.errors(errorMessages, 'kt')) { %>
+                <input class="form-box" placeholder="000000-0000" name="kt" id="kt" style="background-color: rgb(224, 129, 129);">
+              <% } else { %>
+                <input class="form-box" placeholder="000000-0000" name="kt" id="kt">
+              <% } %>
+            </div>
+
+            <div class="form-item"> 
+              <label>Athugasemd: </label>
+              <textarea class="form-box" name="ath" id="ath" ></textarea>
+            </div>
+
+            <div class="form-center">
+              <input type="checkbox" name="hidden" id=hidden>
+              <label>Ekki birta nafn á lista</label>
+            </div>
+
+            <% if(typeof errorMessages != 'undefined') { %>
+              <div class="errors">
+              <h3> Villur við undirskrift: </h2>
+                <ul>
+                  <%  errorMessages.forEach((error) => { %>
+                    <li><%= error.msg %></li>
+                  <% }) %>
+                </ul>
+              </div>
+            <% } %>            
+            <div class="form-center">
+              <button type="submit">Skrifa undir</button>
+            </div>
+          </form>
+        <hr>
+      </div>
+      <div class="signature-table">
+
+        <h2>Undirskriftir</h2>
+        
+        <table>
+          <tr>
+            <th class="table-day">Dags</th>
+            <th class="table-name">Nafn</th>
+            <th class="table-ath">Athugasemd</th>
+          </tr>
+          
+          <% list.forEach((item) => {%>
+            <tr>
+              <td class="table-day"><%= locals.dayFormat(item.signed) %></td>
+              <td class="table-name"><% if(item.anonymous == false) { %>
+                <%= item.name %>
+              <% } else { %>
+                Ónafngreindur
+              <% } %></td>
+              <td class="table-ath"><%= item.comment %></td>
+            </tr>
+            <% }) %>
+            
+          </table>
+        </div>
+
+    </main>
+  </body> 
+</html>

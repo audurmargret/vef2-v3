@@ -1,0 +1,46 @@
+.signature-table {
+  text-align: center;
+}
+
+table {
+  border: 1px solid rgb(172, 172, 172);
+  border-collapse: collapse;
+  margin: auto;
+  width: 90%;
+}
+
+tbody {
+  width: 100%;
+}
+
+tr {
+  display: flex;
+  min-height: 30px;
+  width: 100%;
+}
+
+th,
+td {
+  border: 1px solid rgb(172, 172, 172);
+  padding: 5px;
+}
+
+td {
+  font-weight: 100;
+  text-align: left;
+}
+
+.table-ath {
+  width: 50%;
+}
+
+.table-name {
+  width: 30%;
+  word-wrap: break-word;
+}
+
+.table-day {
+  text-align: center;
+  width: 20%;
+  word-wrap: break-word;
+}
