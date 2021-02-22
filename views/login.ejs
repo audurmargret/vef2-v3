@@ -1,0 +1,34 @@
+<%- include ('header'); -%>
+
+
+<h1>
+    Innskráning
+</h1>
+
+<form>
+    <div class="form-item">
+        <label for="name"> Notendanafn: </label>
+          <!--<% if(typeof errorMessages != 'undefined' && locals.errors(errorMessages, 'name')) { %>-->
+          <!--<% } else { %>-->
+            <input class="form-box"  type="text" name="username" id="username">
+          <!--<% } %>-->
+      </div>
+
+      <div class="form-item">
+        <label for="kt">Lykilorð:</label>
+        <!--<% if(typeof errorMessages != 'undefined' && locals.errors(errorMessages, 'kt')) { %>
+          <input class="form-box" placeholder="000000-0000" name="kt" id="kt" style="background-color: rgb(224, 129, 129);">
+        <% } else { %>-->
+          <input class="form-box" name="password" id="password">
+        <!--<% } %>-->
+      </div>
+
+      <div class="form-center">
+        <button type="submit">Innskrá</button>
+      </div>
+
+</form>
+
+
+<%- include ('footer'); -%>
+

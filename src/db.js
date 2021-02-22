@@ -50,4 +50,15 @@ async function count() {
   return c.rows.length;
 }
 
-export const db = { select, insert, query, count };
+async function findByUsername(username) {
+  const q = 'SELECT * FROM users WHERE username = $1';
+  const result = await query(q, [username]);
+
+  if(result.rowCount === 1) {
+    return result.rows[0];
+  }
+
+  return null;
+}
+
+export const db = { select, insert, query, count, findByUsername };

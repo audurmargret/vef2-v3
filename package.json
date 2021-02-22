@@ -14,7 +14,8 @@
     "eslint": "eslint *.js **/*.js",
     "dev": "concurrently npm:sass-watch \"nodemon ./src/app.js\"",
     "test": "concurrently npm:eslint npm:stylelint",
-    "setup": "node ./src/setup.js"
+    "setup": "node ./src/setup.js",
+    "users": "node ./src/users.js"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,7 @@
   },
   "homepage": "https://github.com/audurmargret/vef2-v2#readme",
   "dependencies": {
+    "bcrypt": "^5.0.0",
     "dotenv": "^8.2.0",
     "ejs": "^3.1.5",
     "express": "^4.17.1",

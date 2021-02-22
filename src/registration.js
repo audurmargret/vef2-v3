@@ -56,7 +56,8 @@ async function show(req, call) {
   const offset = Number(page-1) * limit
   const list = await db.select(offset, limit);
   const count = await db.count();
-  const result = getPagingResults(list, limit, req)
+  const result = getPagingResults(list, limit, req);
+  const title = "Undirskriftarlisti";
 
   const view = {
     limit: limit,
@@ -66,6 +67,7 @@ async function show(req, call) {
     count: count,
     result: result,
     call: call,
+    title: title,
   };
   return view;
 }

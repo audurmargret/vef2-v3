@@ -63,6 +63,7 @@ async function show(req, call) {
     count: count,
     result: result,
     call: call,
+    title: "Undirskriftarlisti - umsjón"
   };
   return view;
 }
@@ -74,8 +75,38 @@ async function getAdminView(req,res) {
   return res.render('admin', { view });
 }
 
+async function getLogin(req,res) {
+  const view = {
+      call: 'admin',
+      title: "Innskráning"
+  }
+  return res.render('login', { view });
+}
 
+async function postLogin(req, res) {
+    try {
+        const user = await db.findByUsername(username);
+    
+        if (!user) {
+          return done(null, false);
+        }
+    
+        const passwordsMatch = await bcrypt.compare(password, user.password);
+    
+        if (passwordsMatch) {
+          return done(null, user);
+        }
+      } catch (err) {
+        console.error(err);
+        return done(err);
+      }
+    
+      return done(null, false);
+}
+ 
 
 
 admin.get('/admin', catchErrors(getAdminView))
+admin.get('/admin/login', catchErrors(getLogin))
+admin.post('/admin/login', catchErrors(postLogin))
 admin.get('/admin/:page', catchErrors(getAdminView))
