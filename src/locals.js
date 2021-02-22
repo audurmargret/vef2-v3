@@ -16,6 +16,6 @@ export function errors(value, where) {
   return false;
 }
 
-export function count (list) {
-  return list.length;
+export function totalPages(signatures) {
+  return Math.floor(signatures/50) + 1;
 }

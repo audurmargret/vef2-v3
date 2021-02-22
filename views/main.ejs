@@ -1,13 +1,5 @@
-<!doctype html>
-<html lang="is">
-  <head>
-    <meta charset="utf-8">
-    <title>Undirskriftarlisti</title>
-    <link rel="stylesheet" href="styles.css">
-  </head>
+<%- include ('header'); -%>
 
-  <body>
-    <main>
       <div class="signature-form">
         <h1>Undirskriftarlisti</h1>
           <form class="form" method="POST" action="/" enctype="application/x-www-form-urlencoded">
@@ -55,33 +47,6 @@
           </form>
         <hr>
       </div>
-      <div class="signature-table">
-
-        <h2>Undirskriftir</h2>
-        <p>Fjöldi undirskrifta: <%= locals.count(list) %> </p>
-
-        <table>
-          <tr>
-            <th class="table-day">Dags</th>
-            <th class="table-name">Nafn</th>
-            <th class="table-ath">Athugasemd</th>
-          </tr>
-          
-          <% list.forEach((item) => {%>
-            <tr>
-              <td class="table-day"><%= locals.dayFormat(item.signed) %></td>
-              <td class="table-name"><% if(item.anonymous == false) { %>
-                <%= item.name %>
-              <% } else { %>
-                Ónafngreindur
-              <% } %></td>
-              <td class="table-ath"><%= item.comment %></td>
-            </tr>
-            <% }) %>
-            
-          </table>
-        </div>
-
-    </main>
-  </body> 
-</html>
+      
+    <%- include ('signatures'); -%>
+    <%- include ('footer'); -%>

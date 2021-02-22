@@ -74,7 +74,7 @@ td {
   text-align: left; }
 
 .table-ath {
-  width: 50%; }
+  width: 40%; }
 
 .table-name {
   width: 30%;
@@ -84,6 +84,11 @@ td {
   text-align: center;
   width: 20%;
   word-wrap: break-word; }
+
+.table-delete {
+  width: 10%; }
+  .table-delete button {
+    width: 100%; }
 
 main {
   font-family: Arial, Helvetica, sans-serif;

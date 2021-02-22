@@ -1,0 +1,39 @@
+<div class="signature-table">
+    <h2>Undirskriftir</h2>
+    <p>Fjöldi undirskrifta: <%= view.count %> </p>
+    <p>Síða: <%=view.result.currentPage %> af <%= locals.totalPages(view.count) %> </p>
+    <% if(typeof view.result._links.prev != 'undefined') { %>
+      <a href="<%= view.result._links.prev.href%>">Fyrri síða</a>
+    <% } %>
+    <% if(typeof view.result._links.next != 'undefined') { %>
+      <a href="<%= view.result._links.next.href%>">Næsta síða</a>
+    <% } %>
+    <table>
+      <tr>
+        <th class="table-day">Dags</th>
+        <th class="table-name">Nafn</th>
+        <th class="table-ath">Athugasemd</th>
+        <% if(view.call == 'admin') { %>
+          <th class="table-delete">Eyða</th>
+        <% } %>
+      </tr>
+      
+      <% view.list.forEach((item) => {%>
+        <tr>
+          <td class="table-day"><%= locals.dayFormat(item.signed) %></td>
+          <td class="table-name"><% if(item.anonymous == false) { %>
+            <%= item.name %>
+          <% } else { %>
+            Ónafngreindur
+          <% } %></td>
+          <td class="table-ath"><%= item.comment %></td>
+          <% if(view.call == 'admin') { %>
+            <th class="table-delete">
+              <button> Eyða</button>
+            </th>
+          <% } %>
+        </tr>
+        <% }) %>
+        
+      </table>
+    </div>

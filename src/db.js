@@ -33,8 +33,9 @@ async function query(q, values = []) {
   }
 }
 
-async function select() {
-  const result = await query('SELECT * FROM signatures ORDER BY signed DESC');
+async function select(offset=0, limit=50) {
+  const result = await query('SELECT * FROM signatures ORDER BY signed DESC OFFSET $1 LIMIT $2', [offset, limit]);
+
   return result.rows;
 }
 
@@ -44,4 +45,9 @@ async function insert(data) {
   return query(s, values);
 }
 
-export const db = { select, insert, query };
+async function count() {
+  const c = await query('SELECT * FROM signatures;');
+  return c.rows.length;
+}
+
+export const db = { select, insert, query, count };

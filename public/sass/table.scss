@@ -31,7 +31,7 @@ td {
 }
 
 .table-ath {
-  width: 50%;
+  width: 40%;
 }
 
 .table-name {
@@ -43,4 +43,12 @@ td {
   text-align: center;
   width: 20%;
   word-wrap: break-word;
+}
+
+.table-delete {
+  width: 10%;
+
+  button {
+    width: 100%;
+  }
 }

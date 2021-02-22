@@ -6,7 +6,8 @@ import express from 'express';
 import { fileURLToPath } from 'url';
 
 import { registration } from './registration.js';
-import { dayFormat, errors, count } from './locals.js';
+import { admin } from './admin.js';
+import { dayFormat, errors, totalPages } from './locals.js';
 
 dotenv.config();
 
@@ -25,12 +26,15 @@ app.use(express.urlencoded({ extended: true }));
 
 app.locals.dayFormat = (str) => dayFormat(str);
 app.locals.errors = (str, a) => errors(str, a);
-app.locals.count = (str) => count(str);
+app.locals.totalPages = (str) => totalPages(str);
 
 app.set('views', path.join(dirname, './../views'));
 app.set('view engine', 'ejs');
 
+app.get('/admin', admin);
+app.get('/admin/:page', admin);
 app.use('/', registration);
+app.use('/:page', registration);
 
 function errorHandler(error, req, res, next) { // eslint-disable-line
   console.error(error);

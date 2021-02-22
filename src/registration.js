@@ -17,9 +17,68 @@ function catchErrors(fn) {
   return (req, res, next) => fn(req, res, next).catch(next);
 }
 
+function getPagingResults(list, limit, req) {
+  const currentPage = req.params.page||1;
+  const port = 3000;
+ 
+  const result = {
+    currentPage: currentPage,
+    _links: {
+      self: {
+        href: `${currentPage}`,
+      },
+    },
+    items: list,
+  };
+
+  if(currentPage > 1) {
+    const prevPage = Number(currentPage) - 1;
+    result._links.prev = {
+      href: `${prevPage}`
+    };
+  }
+
+  if (list.length >= limit) {
+    const nextPage = Number(currentPage) + 1;
+    result._links.next = {
+      href: `${nextPage}`
+    };
+  }
+
+  return result;
+}
+
+async function show(req, call) {
+  let page = req.params.page;
+  if(!page) page = 1
+
+  const limit = 50;
+  const offset = Number(page-1) * limit
+  const list = await db.select(offset, limit);
+  const count = await db.count();
+  const result = getPagingResults(list, limit, req)
+
+  const view = {
+    limit: limit,
+    page: page,
+    offset: offset,
+    list: list,
+    count: count,
+    result: result,
+    call: call,
+  };
+  return view;
+}
+
 async function getRegistrations(req, res) {
-  const list = await db.select();
-  return res.render('main', { list });
+  const view = await show( req, 'main' );
+  
+  return res.render('main', { view });
+}
+
+async function getAdminView(req,res) {
+  const view = await show( req, 'admin' );
+  return res.render('admin', { view });
 }
 
 async function showErrors(req, res, next) {
@@ -27,8 +86,8 @@ async function showErrors(req, res, next) {
 
   if (!validation.isEmpty()) {
     const errorMessages = validation.array();
-    const list = await db.select();
-    return res.render('main', { list, errorMessages });
+    const view = await show(req, 'error');
+    return res.render('main', { view, errorMessages });
   }
   return next();
 }
@@ -51,8 +110,7 @@ async function postRegistrations(req, res) {
   };
 
   await db.insert(data);
-  const list = await db.select();
-  return res.render('main', { list });
+  return res.redirect('/');
 }
 
 async function validKT(value) {
@@ -88,5 +146,9 @@ const sanitazions = [
   check('ath').trim().escape(),
 ];
 
+
+
+registration.get('/admin', catchErrors(getAdminView))
+registration.get('/:page', catchErrors(getRegistrations))
 registration.get('/', catchErrors(getRegistrations));
 registration.post('/', validations, showErrors, sanitazions, catchErrors(postRegistrations));
