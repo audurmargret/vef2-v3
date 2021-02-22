@@ -15,3 +15,7 @@ export function errors(value, where) {
   }
   return false;
 }
+
+export function count (list) {
+  return list.length;
+}
