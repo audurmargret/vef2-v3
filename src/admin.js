@@ -65,7 +65,6 @@ async function show(req, call) {
     call: call,
     title: "Undirskriftarlisti - umsjón"
   };
-  console.log("get");
   return view;
 }
 
@@ -73,7 +72,6 @@ async function show(req, call) {
 
 async function getAdminView(req,res) {
   const view = await show( req, 'admin' );
-
   return res.render('admin', { view });
   // ef ekki innskráður , redirect-a á /login
 }
@@ -83,7 +81,6 @@ async function getLogin(req,res) {
       call: 'admin',
       title: "Innskráning"
   }
-  console.log("getLogin")
   return res.render('login', { view });
 }
 
@@ -116,4 +113,4 @@ admin.get('/admin/login', catchErrors(getLogin))
 admin.post('/admin/login', catchErrors(postLogin))
 
 admin.get('/admin', catchErrors(getAdminView))
-admin.get('/admin/:page', catchErrors(getAdminView))
+//admin.get('/admin/:page', catchErrors(getAdminView))

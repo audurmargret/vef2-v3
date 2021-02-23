@@ -6,7 +6,7 @@ import express from 'express';
 import { fileURLToPath } from 'url';
 
 import { registration } from './registration.js';
-//import { admin } from './admin.js';
+import { admin } from './admin.js';
 import { dayFormat, errors, totalPages } from './locals.js';
 
 dotenv.config();
@@ -31,9 +31,8 @@ app.locals.totalPages = (str) => totalPages(str);
 app.set('views', path.join(dirname, './../views'));
 app.set('view engine', 'ejs');
 
-/*app.get('/admin/login', admin);
+app.get('/admin', admin);
 app.get('/admin/:page', admin);
-app.get('/admin', admin);*/
 app.use('/', registration);
 app.use('/:page', registration);
 

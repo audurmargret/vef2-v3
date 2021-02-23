@@ -46,12 +46,11 @@ async function insert(data) {
 }
 
 async function count() {
-  /*const c = await query('SELECT * FROM signatures;');
-  return c.rows.length;*/
-  return 0;
+  const c = await query('SELECT * FROM signatures;');
+  return c.rows.length;
 }
 
-/*async function findByUsername(username) {
+async function findByUsername(username) {
   const q = 'SELECT * FROM users WHERE username = $1';
   const result = await query(q, [username]);
 
@@ -60,6 +59,6 @@ async function count() {
   }
 
   return null;
-}*/
+}
 
-export const db = { select, insert, query, count };
+export const db = { select, insert, query, count, findByUsername };
