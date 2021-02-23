@@ -38,11 +38,11 @@ app.use('/:page', registration);
 
 function errorHandler(error, req, res, next) { // eslint-disable-line
   console.error(error);
-  res.status(500).render('error', { title: 'Villa', error: 'Villa kom upp' });
+  return res.status(500).render('error', { title: 'Villa', error: 'Villa kom upp' });
 }
 
 function notFoundHandler(req, res, next) { // eslint-disable-line
-  res.status(404).render('error', { title: 'Villa', error: 'Síða fannst ekki' });
+  return res.status(404).render('error', { title: 'Villa', error: 'Síða fannst ekki' });
 }
 
 app.use(notFoundHandler);

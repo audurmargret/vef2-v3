@@ -73,6 +73,7 @@ async function show(req, call) {
 async function getAdminView(req,res) {
   const view = await show( req, 'admin' );
   return res.render('admin', { view });
+  // ef ekki innskráður , redirect-a á /login
 }
 
 async function getLogin(req,res) {
@@ -84,6 +85,8 @@ async function getLogin(req,res) {
 }
 
 async function postLogin(req, res) {
+  console.log("post");
+  /*
     try {
         const user = await db.findByUsername(username);
     
@@ -101,12 +104,13 @@ async function postLogin(req, res) {
         return done(err);
       }
     
-      return done(null, false);
+      return done(null, false);*/
 }
  
 
 
-admin.get('/admin', catchErrors(getAdminView))
 admin.get('/admin/login', catchErrors(getLogin))
 admin.post('/admin/login', catchErrors(postLogin))
-admin.get('/admin/:page', catchErrors(getAdminView))
+
+admin.get('/admin', catchErrors(getAdminView))
+//admin.get('/admin/:page', catchErrors(getAdminView))
