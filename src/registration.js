@@ -150,7 +150,7 @@ const sanitazions = [
 
 
 
-//registration.get('/admin', catchErrors(getAdminView))
+registration.get('/admin', catchErrors(getAdminView))
 registration.get('/:page', catchErrors(getRegistrations))
 registration.get('/', catchErrors(getRegistrations));
 registration.post('/', validations, showErrors, sanitazions, catchErrors(postRegistrations));

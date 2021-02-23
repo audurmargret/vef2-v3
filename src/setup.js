@@ -38,10 +38,11 @@ async function main() {
 
   // búa til töflu út frá skema
   try {
-    const createTable = await readFileAsync('./schema.sql');
+    const createTable = await readFileAsync('./sql/schema.sql');
+    //const createTableUsers = await readFileAsync('./sql/users.sql');
     await query(createTable.toString('utf8'));
+    //await query(createTableUsers.toString('utf8'));
 
-    await query ('CREATE TABLE users (id serial primary key, username varchar(255) unique not null, password varchar(255) not null);');
     console.info('Töflur búnar til');
   } catch (e) {
     console.error('Villa við að búa til töflur:', e.message);
